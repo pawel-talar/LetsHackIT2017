@@ -1,7 +1,13 @@
+import commands
+from config import config_reader
+import logging
+import os.path
+import redis
 import telegram
-import yaml
+from telegram.ext import Updater
+from telegram.ext import CommandHandler
 
-default_config_filename = 'config.yaml'
+default_config_filename = os.path.abspath('config.yaml')
 
 
 def get_bot(token):
@@ -10,17 +16,27 @@ def get_bot(token):
     return telegram.Bot(token)
 
 
-def get_token_from_config(filename):
-    token_field_name = 'token'
-    config = None
-    with open(filename, 'r') as f:
-        config = yaml.load(f.read())
-    assert config is not None
-    assert token_field_name in config
-    return config[token_field_name]
+def get_updater(token):
+    return Updater(token=token)
 
 
 if __name__ == '__main__':
-    token = get_token_from_config(default_config_filename)
+    logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level = logging.INFO)
+
+    redis_config = config_reader.get_redis_address_from_config(default_config_filename)
+    redis_client = redis.StrictRedis(host=redis_config['ip'],
+                                     port=redis_config['port'],
+                                     db=0)
+
+    token = config_reader.get_token_from_config(default_config_filename)
     bot = get_bot(token)
-    print(bot.get_me())
+    updater = get_updater(token)
+
+    commands = commands.get_commands(redis_client)
+
+    dispatcher = updater.dispatcher
+    for name, func in commands.items():
+        handler = CommandHandler(name, func)
+        dispatcher.add_handler(handler)
+
+    updater.start_polling()

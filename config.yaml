@@ -1,1 +1,2 @@
 token: "482860682:AAEgY_HYUO0BkeDnS7O5-tWSHn63NmxG0dE"
+redis: {ip: "156.17.146.155", port: 9999}
