@@ -9,4 +9,4 @@ def register_competition(redis_client, name, description):
     assert type(description) == str
     comp = {'name': name, 'desc': description}
     serialized_comp = json.dumps(comp)
-    redis_client.lpush(competition_list_key, serialized_comp)
+    redis_client.rpush(competition_list_key, serialized_comp)
