@@ -1,2 +1,1 @@
-print("test"
-      dupa
+print("test dupa")
