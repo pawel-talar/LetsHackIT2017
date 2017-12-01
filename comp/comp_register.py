@@ -8,4 +8,3 @@ def comp_register(redis_client, bot, update):
     print((name, desc))
     register_competition(redis_client, name, desc)
 
-
