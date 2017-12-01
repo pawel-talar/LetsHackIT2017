@@ -2,6 +2,6 @@
 
 Wpisujcie miasta!!!
 
- * Sichówek
+ * Sichówek x2 
  * Piotrowice
  * eN Wu Gie
