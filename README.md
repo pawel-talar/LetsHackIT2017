@@ -3,3 +3,4 @@
 Wpisujcie miasta!!!
 
  * Sichówek
+ * Piotrowice
