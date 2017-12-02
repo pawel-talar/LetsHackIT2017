@@ -1,4 +1,4 @@
-from db.comp import register_user
+from db.comp import register_competition
 
 def comp_register(redis_client, bot, update):
     assert bot is not None
@@ -6,4 +6,5 @@ def comp_register(redis_client, bot, update):
     assert len(comp_params) >= 2
     name, desc = comp_params[0], ' '.join(comp_params[1:])
     print((name, desc))
-    register_user(redis_client, name, desc)
+    register_competition(redis_client, name, desc)
+    bot.send_message(chat_id=update.message.chat_id, text="Konkurs utworzony pomyślnie!")

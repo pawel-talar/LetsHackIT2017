@@ -1,5 +1,12 @@
 certifi==2017.11.5
+cycler==0.10.0
 future==0.16.0
+matplotlib==2.1.0
+numpy==1.13.3
+pyparsing==2.2.0
+python-dateutil==2.6.1
 python-telegram-bot==8.1.1
-redis==2.10.6
+pytz==2017.3
 PyYAML==3.12
+redis==2.10.6
+six==1.11.0
