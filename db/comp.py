@@ -2,7 +2,6 @@ import json
 
 competition_list_key = 'competitions'
 
-
 def register_competition(redis_client, name, description):
     assert redis_client is not None
     assert type(name) == str
