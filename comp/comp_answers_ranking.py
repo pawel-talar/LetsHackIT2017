@@ -1,7 +1,6 @@
 import json
 from db.comp import answers_ranking
 import matplotlib.pyplot as plt; plt.rcdefaults()
-import numpy as np
 import matplotlib.pyplot as plt
 from pylab import savefig
 
@@ -39,7 +38,8 @@ def get_tasks_per_user(answers_rank):
 
 
 def answers_ranking_parse(redis_client, bot, update):
-    assert len(update.message.text.split()) > 1
+    if len(update.message.text.split()) > 1:
+        return
     assert update.message.text.split()[1].isdigit()
 
     contest_id = int(update.message.text.split()[1])

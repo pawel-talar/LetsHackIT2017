@@ -1,4 +1,3 @@
-#import json
 from db.comp import check_task_answer
 from db.comp import submit_correct_answer
 
