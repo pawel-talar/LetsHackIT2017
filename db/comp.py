@@ -91,7 +91,7 @@ def submit_correct_answer(redis_client, competition_id, task_id, user_id):
 def register_user(redis_client, user_id, comp_id):
     assert redis_client is not None
     assert type(user_id) == int and type(comp_id) == int
-    if comp_id <= redis_client.llen(competition_list_key) and comp_id >= 0:
+    if comp_id < redis_client.llen(competition_list_key) and comp_id >= 0:
         redis_client.sadd(competition_id.format(id = comp_id), user_id)
         return True
     return False
@@ -104,7 +104,9 @@ def get_contestants(redis_client, comp_id):
 
 def answers_ranking(redis_client, comp_id):
     size = redis_client.llen(answers_list_key_format.format(comp_id = comp_id))
+    print(size)
     list=[]
     for i in range(0, size):
         list.append(redis_client.lindex(answers_list_key_format.format(comp_id = comp_id), i))
+    print(list)
     return list

@@ -8,4 +8,3 @@ def comp_tasks_list(redis_client, bot, update):
         bot.send_message(chat_id=update.message.chat_id, text=text)
     else:
         bot.send_message(chat_id=update.message.chat_id, text='Brak pytań dla tego konkursu!')
-
