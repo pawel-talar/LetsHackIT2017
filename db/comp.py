@@ -4,6 +4,8 @@ import logging
 competition_list_key = 'competitions'
 answers_list_key_format = 'answers_{comp_id}'
 
+competition_id = 'competition_{id}'
+
 def register_competition(redis_client, name, description):
     assert redis_client is not None
     assert type(name) == str
@@ -34,7 +36,7 @@ def comp_tasks(redis_client, comp_id):
        t = json.loads(c.decode())
        text = text + '\n' + "{}: {}\n {}".format(i, t['name'], t['desc'])
     return text
-
+  
 def check_task_answer(redis_client, competition_id, task_id, answer):
     assert redis_client is not None
     assert type(competition_id) == str
@@ -67,5 +69,13 @@ def submit_correct_answer(redis_client, competition_id, task_id, user_id):
     correct_answer = {'task_id': task_id, 'user_id': user_id}
     correct_answer_json = json.dumps(correct_answer)
     logging.info("Saving correct answer: {}".format(correct_answer))
-    redis_client.rpush(answers_list_key_format.format(
-        comp_id=competition_id), correct_answer_json)
+    redis_client.rpush(answers_list_key_format.format(comp_id=competition_id), correct_answer_json)
+  
+
+def register_user(redis_client, user_id, comp_id):
+    assert redis_client is not None
+    assert type(user_id) == int and type(comp_id) == int
+    if comp_id <= redis_client.llen(competition_list_key) and comp_id >= 0:
+        redis_client.sadd(competition_id.format(id = comp_id), user_id)
+        return True
+    return False
