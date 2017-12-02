@@ -14,7 +14,7 @@ def plotting(contest_number, highscores):
 
     plt.bar(y_pos, [v for _, v in highscores], align='center')
     plt.xticks(y_pos, [k for (k, _) in highscores])
-    plt.yticks(y_pos)
+    plt.yticks(range(max([v for (_, v) in highscores]) + 1))
 
     plt.xlabel('Imię i nazwisko')
     plt.ylabel('Punkty')
