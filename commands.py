@@ -15,5 +15,8 @@ def get_commands(redis_client):
         'comp_add_task': functools.partial(comp_add_task, redis_client),
         'comp_submit_answer': functools.partial(comp_submit_answer, redis_client),
         'comp_join': functools.partial(user_comps_register, redis_client),
-        'show_my_comps' : functools.partial(show_my_comps, redis_client)
+        'show_my_comps' : functools.partial(show_my_comps, redis_client),
+        'comp_join': functools.partial(user_comps_register, redis_client),
+        'comp_submit_answer': functools.partial(comp_submit_answer,
+                                                redis_client)
     }

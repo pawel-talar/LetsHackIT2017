@@ -5,6 +5,7 @@ competition_list_key = 'competitions'
 answers_list_key_format = 'answers_{comp_id}'
 competition_id = 'competition_{id}'
 
+
 def register_competition(redis_client, name, description):
     assert redis_client is not None
     assert type(name) == str
@@ -20,7 +21,18 @@ def add_task(redis_client, competition_id, name, description, answer):
     comp = {'competition_id': competition_id, 'name': name, 'desc': description, 'ans': answer}
     serialized_comp = json.dumps(comp)
     adding_point = "tasks_{}".format(competition_id)
-    redis_client.rpush(adding_point, serialized_comp)
+    id = redis_client.rpush(adding_point, serialized_comp) - 1
+    return id
+
+
+def get_task(redis_client, competition_id, task_id):
+    assert type(task_id) == int
+    return redis_client.lindex('tasks_{}'.format(competition_id), task_id)
+
+
+def get_competition(redis_client, competition_id):
+    assert type(competition_id) == int
+    return redis_client.lindex(competition_list_key, competition_id)
 
 def check_task_answer(redis_client, competition_id, task_id, answer):
     assert redis_client is not None
