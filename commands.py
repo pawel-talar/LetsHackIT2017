@@ -7,6 +7,8 @@ from comp.comp_tasks_list import comp_tasks_list
 from comp.comp_join import user_comps_register
 from comp.comp_submit_anwer import comp_submit_answer
 from comp.my_comps import show_my_comps
+from comp.comp_contestants import comp_contestants
+
 
 def get_commands(redis_client):
     return {
@@ -21,5 +23,6 @@ def get_commands(redis_client):
         'show_my_comps' : functools.partial(show_my_comps, redis_client),
         'comp_join': functools.partial(user_comps_register, redis_client),
         'comp_submit_answer': functools.partial(comp_submit_answer,
-                                                redis_client)
+                                                redis_client),
+        'comp_contestants': functools.partial(comp_contestants, redis_client)
     }

@@ -35,6 +35,7 @@ def get_competition(redis_client, competition_id):
     assert type(competition_id) == int
     return redis_client.lindex(competition_list_key, competition_id)
 
+
 def comps_list(redis_client):
     text = ''
     for i, c in enumerate(redis_client.lrange('competitions', 0, -1)):
@@ -42,13 +43,15 @@ def comps_list(redis_client):
         text = text + '\n' + "{}: {}\n {}".format(i, t['name'], t['desc'])
     return text
 
+
 def comp_tasks(redis_client, comp_id):
     text = ''
     for i, c in enumerate(redis_client.lrange("tasks_{}".format(comp_id), 0, -1)):
        t = json.loads(c.decode())
        text = text + '\n' + "{}: {}\n {}".format(i, t['name'], t['desc'])
     return text
-  
+
+
 def check_task_answer(redis_client, competition_id, task_id, answer):
     assert redis_client is not None
     assert type(competition_id) == str
@@ -84,6 +87,7 @@ def submit_correct_answer(redis_client, competition_id, task_id, user_id):
     redis_client.rpush(answers_list_key_format.format(comp_id=competition_id), correct_answer_json)
   
 
+
 def register_user(redis_client, user_id, comp_id):
     assert redis_client is not None
     assert type(user_id) == int and type(comp_id) == int
@@ -91,3 +95,10 @@ def register_user(redis_client, user_id, comp_id):
         redis_client.sadd(competition_id.format(id = comp_id), user_id)
         return True
     return False
+
+
+def get_contestants(redis_client, comp_id):
+    assert redis_client is not None
+    assert type(comp_id) == int
+    contestants = redis_client.smembers(competition_id.format(id = comp_id))
+    return contestants
