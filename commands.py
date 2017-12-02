@@ -1,4 +1,3 @@
-import start
 import functools
 from comp.comp_register import comp_register
 from comp.comp_list import comp_list
@@ -12,7 +11,6 @@ from comp.comp_answers_ranking import answers_ranking_parse
 
 def get_commands(redis_client):
     return {
-        'start': start.start,
         'comp_register': functools.partial(comp_register, redis_client),
         'comp_list': functools.partial(comp_list, redis_client),
         'comp_tasks_list': functools.partial(comp_tasks_list, redis_client),
@@ -22,5 +20,4 @@ def get_commands(redis_client):
         'comp_join': functools.partial(user_comps_register, redis_client),
         'comp_contestants': functools.partial(comp_contestants, redis_client),
         'answers_ranking': functools.partial(answers_ranking_parse, redis_client)
-
     }
