@@ -103,11 +103,7 @@ def get_contestants(redis_client, comp_id):
     contestants = redis_client.smembers(competition_id.format(id = comp_id))
     return list(contestants)
 
+
 def answers_ranking(redis_client, comp_id):
-    size = redis_client.llen(answers_list_key_format.format(comp_id = comp_id))
-    print(size)
-    list=[]
-    for i in range(0, size):
-        list.append(redis_client.lindex(answers_list_key_format.format(comp_id = comp_id), i))
-    print(list)
-    return list
+    return redis_client.lrange(answers_list_key_format.format(
+            comp_id = comp_id), 0, -1)
