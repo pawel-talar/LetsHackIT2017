@@ -20,7 +20,7 @@ def get_commands(redis_client):
         'comp_submit_answer': functools.partial(comp_submit_answer, redis_client),
         'show_my_comps' : functools.partial(show_my_comps, redis_client),
         'comp_join': functools.partial(user_comps_register, redis_client),
-        'comp_contestants': functools.partial(comp_contestants, redis_client)
+        'comp_contestants': functools.partial(comp_contestants, redis_client),
         'answers_ranking': functools.partial(answers_ranking_parse, redis_client)
 
     }
