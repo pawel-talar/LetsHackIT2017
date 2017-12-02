@@ -1,5 +1,6 @@
 from config import config_reader
 from db.comp import register_competition
+from db.comp import add_task
 import os
 import redis
 
@@ -13,8 +14,25 @@ if __name__ == '__main__':
                                      db=0)
 
     competitions = [
-        {'name': 'lets-hack-it', 'description': 'Hackaton for students'},
-        {'name': 'advent-of-code-2017', 'description': 'Help Santa Claus'}
+        {'name': 'lets-hack-it', 'description': 'Hackaton dla studentów'},
+        {'name': 'advent-of-code-2017', 'description': 'Help Santa Claus '
+                                                       'before Christmas'},
     ]
     for comp in competitions:
         register_competition(redis_client, comp['name'], comp['description'])
+
+    tasks = {
+        0: [
+            {'name': 'Symulacje', 'description': 'Credit?', 'answer': 'Suisse'},
+            {'name': 'Boty', 'description': '5+3?', 'answer': '8'},
+        ],
+        1: [
+            {'name': 'Stars', 'description': 'Lowest prime number?', 'answer':
+                '2'},
+            {'name': 'Snow', 'description': 'ROT13(ala)?', 'answer': 'nyn'},
+        ]
+    }
+
+    for i, ts in tasks.items():
+        for t in ts:
+            add_task(redis_client, i, t['name'], t['description'], t['answer'])
