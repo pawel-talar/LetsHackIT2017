@@ -1,7 +1,3 @@
 # Let's Hack IT 2017
 
-Wpisujcie miasta!!!
-
- * Sichówek x2 
- * Piotrowice
- * eN Wu Gie
+Projekt wykonany podczas hackatonu organizowanego przez firmę Credit Suisse. Jest to bot telegramowy, który ma pomóc w organizowaniu eventów podobny do AdventOfCode. 
